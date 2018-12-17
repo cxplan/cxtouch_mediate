@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CXTouch</string>
+    <string name="hello_world">你好！</string>
+    <string name="action_settings">设置</string>
+
+    <string name="keyboard_name">CXTouch Keyboard</string>
+    <string name="keyboard_on">CXTouch Keyboard</string>
+
+    <!-- main activity -->
+    <string name="inputerButtonTitle">切换输入法</string>
+</resources>
