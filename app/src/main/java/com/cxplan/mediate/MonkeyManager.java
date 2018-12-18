@@ -176,6 +176,39 @@ public class MonkeyManager {
     }
 
     /**
+     * Scroll screen down or up.
+     *
+     * @param x the x coordinate of point.
+     * @param y the y coordinate of point.
+     * @param hScrollValue horizontal scroll increment, {@link MotionEvent#AXIS_HSCROLL}
+     * @param vScrollValue vertical scroll increment, {@link MotionEvent#AXIS_VSCROLL}
+     */
+    public static void scroll(float x, float y, float hScrollValue, float vScrollValue) {
+        long l = SystemClock.uptimeMillis();
+        MotionEvent.PointerProperties[] pps = new MotionEvent.PointerProperties[1];
+        pps[0] = new MotionEvent.PointerProperties();
+        pps[0].clear();
+        pps[0].id = 0;
+        MotionEvent.PointerCoords[] mpc = new MotionEvent.PointerCoords[1];
+        mpc[0] = new MotionEvent.PointerCoords();
+        mpc[0].clear();
+        mpc[0].x = x;
+        mpc[0].y = y;
+        mpc[0].pressure = 1.0F;
+        mpc[0].size = 1.0F;
+        mpc[0].setAxisValue(MotionEvent.AXIS_HSCROLL, hScrollValue);
+        mpc[0].setAxisValue(MotionEvent.AXIS_VSCROLL, vScrollValue);
+        MotionEvent event = MotionEvent.obtain(l, l, MotionEvent.ACTION_SCROLL,
+                1, pps, mpc, 0, 0, 1.0F,
+                1.0F, 0, 0, InputDevice.SOURCE_TOUCHSCREEN, 0);
+        try {
+            injectInputMethod.invoke(inputManager, event, 0);
+        } catch (Exception e) {
+            LogUtil.e(TAG, e.getMessage(), e);
+        }
+    }
+
+    /**
      * The mouse is pressed down.
      * @param x the x coordinate of point where the mouse is
      * @param y the y coordinate of point where the mouse is
@@ -250,6 +283,22 @@ public class MonkeyManager {
             throws RemoteException, InvocationTargetException, IllegalAccessException
     {
         boolean isScreenOn = (Boolean) isInteractiveMethod.invoke(powerManager);
+        press(KeyEvent.KEYCODE_POWER);
+    }
+
+    public static void turnScreenOn() throws InvocationTargetException, IllegalAccessException {
+        boolean isScreenOn = (Boolean) isInteractiveMethod.invoke(powerManager);
+        if (isScreenOn) {
+            return;
+        }
+        press(KeyEvent.KEYCODE_POWER);
+    }
+
+    public static void turnScreenOff() throws InvocationTargetException, IllegalAccessException {
+        boolean isScreenOn = (Boolean) isInteractiveMethod.invoke(powerManager);
+        if (!isScreenOn) {
+            return;
+        }
         press(KeyEvent.KEYCODE_POWER);
     }
 

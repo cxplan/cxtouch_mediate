@@ -29,7 +29,7 @@ public class Main {
         final CXApplication instance;
         try {
             instance = CXApplication.getInstance();
-            System.out.println("initialize context finishied: " + instance.getDeviceInfo());
+            System.out.println("initialize context finished: " + instance.getDeviceInfo());
         } catch (Exception e) {
             LogUtil.e(TAG, e.getMessage(), e);
             throw e;

@@ -22,6 +22,7 @@ public class Constant {
     public static final short MONKEY_MOUSE_DOWN = 3;
     public static final short MONKEY_MOUSE_MOVE = 4;
     public static final short MONKEY_MOUSE_UP = 5;
+    public static final short MONKEY_SCROLL = 13;
     public static final short MONKEY_SWITCH_INPUTER = 100;
 
 }

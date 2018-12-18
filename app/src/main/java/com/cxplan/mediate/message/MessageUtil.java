@@ -1,7 +1,3 @@
-/**
- * The code is written by ytx, and is confidential.
- * Anybody must not broadcast these files without authorization.
- */
 package com.cxplan.mediate.message;
 
 import android.util.Log;
@@ -29,7 +25,7 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Created on 2017/4/17.
+ * Created on 2018/4/17.
  *
  * @author kenny
  */

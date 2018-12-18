@@ -46,6 +46,9 @@ public class MonkeyCommandHandler extends AbstractCommandHandler {
             case Constant.MONKEY_PRESS:
                 procesPress(message);
                 break;
+            case Constant.MONKEY_SCROLL:
+                scroll(message);
+                break;
             default:
                 LogUtil.e(TAG, "The monkey operation is not supported: " + type);
         }
@@ -82,6 +85,22 @@ public class MonkeyCommandHandler extends AbstractCommandHandler {
         MonkeyManager.press(keyCode);
     }
 
+    private void scroll(Message message) {
+        final float x = message.getParameter("x");
+        final float y = message.getParameter("y");
+        final Float vScrollValue = message.getParameter("vs");
+        final Float hScrollValue = message.getParameter("hs");
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                MonkeyManager.scroll(x, y, hScrollValue == null ? 0f : hScrollValue,
+                        vScrollValue == null ? 0f : vScrollValue);
+            }
+        };
+
+        Main.invoke(task);
+
+    }
     private void mouseDown(Message message) {
         final float x = message.getParameter("x");
         final float y = message.getParameter("y");
