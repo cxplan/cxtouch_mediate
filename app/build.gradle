@@ -1,0 +1,37 @@
+apply plugin: 'com.android.application'
+apply plugin: 'maven'
+
+android {
+    compileSdkVersion 23
+    defaultConfig {
+        applicationId "com.cxplan.mediate"
+        minSdkVersion 18
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {//设置编译的lint开关，程序在buid的时候，会执行lint检查，有任何的错误或者警告提示，都会终止构建
+        abortOnError false
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion '28.0.3'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:23.4.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'org.apache.mina:mina-core:2.0.16'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.4.3'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.4.3'
+    implementation project(':common')
+    implementation files('libs/framework.jar')
+}

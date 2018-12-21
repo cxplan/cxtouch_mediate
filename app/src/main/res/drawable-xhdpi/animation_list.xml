@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false" >
+
+    <!-- animation-list 帧动画 -->
+    <!-- android:oneshot的值为 false代表播放多次，true代表只播放一次 -->
+    <!-- duration代表每张图片的播放时间 ,持续时间为50毫秒的动画帧 -->
+    <item
+        android:drawable="@drawable/pic1"
+        android:duration="200"/>
+    <item
+        android:drawable="@drawable/pic2"
+        android:duration="200"/>
+    <item
+        android:drawable="@drawable/pic3"
+        android:duration="200"/>
+    <item
+        android:drawable="@drawable/pic4"
+        android:duration="200"/>
+    <item
+        android:drawable="@drawable/pic5"
+        android:duration="200"/>
+    <item
+        android:drawable="@drawable/pic6"
+        android:duration="200"/>
+</animation-list>
+
