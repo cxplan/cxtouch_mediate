@@ -10,9 +10,10 @@ import com.cxplan.mediate.message.handler.AbstractCommandHandler;
 import org.apache.mina.core.session.IoSession;
 
 /**
- * Created by kenny on 2017/6/9.
+ * Created on 2018/5/19.
+ *
+ * @author kenny
  */
-
 public class SetDeviceNameCommandHandler extends AbstractCommandHandler {
     public SetDeviceNameCommandHandler() {
         super(MessageUtil.CMD_DEVICE_SET_NAME);

@@ -17,7 +17,11 @@ import com.cxplan.mediate.util.WindowManagerUtil;
 import org.apache.mina.core.session.IoSession;
 
 import java.io.ByteArrayOutputStream;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class ImageChannelCommandHandler extends AbstractCommandHandler {
     private static final String TAG = Constant.TAG_PREFIX + "Image";
 

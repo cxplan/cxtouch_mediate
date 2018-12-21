@@ -17,7 +17,11 @@ import com.cxplan.mediate.MonkeyManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class WindowManagerUtil {
     private static final String TAG = Constant.TAG_PREFIX + "WinUtil";
 

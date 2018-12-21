@@ -7,7 +7,11 @@ import android.content.Intent;
 
 import com.cxplan.common.util.LogUtil;
 import com.cxplan.mediate.Constant;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class InputerReceiver extends BroadcastReceiver {
 
     private static final String TAG = Constant.TAG_PREFIX + "IR";

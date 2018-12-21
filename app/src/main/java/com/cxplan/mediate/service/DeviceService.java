@@ -7,7 +7,11 @@ import com.cxplan.mediate.message.Message;
 import com.cxplan.mediate.message.MessageException;
 import com.cxplan.mediate.message.MessageUtil;
 import com.cxplan.mediate.process.Main;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class DeviceService extends BaseService {
     private static final String TAG = Constant.TAG_PREFIX + "deviceService";
 

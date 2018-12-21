@@ -30,7 +30,11 @@ import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class CXApplication {
 
     private static final String TAG = Constant.TAG_PREFIX + "Application";

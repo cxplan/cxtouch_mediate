@@ -8,7 +8,11 @@ import com.cxplan.mediate.message.MessageException;
 import org.apache.mina.core.session.IoSession;
 
 import java.io.IOException;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class StartProcessCommandHandler extends AbstractCommandHandler {
     private static final String TAG = Constant.TAG_PREFIX + "startProcess";
 

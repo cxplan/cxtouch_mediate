@@ -6,7 +6,7 @@ import com.cxplan.mediate.message.MessageException;
 import org.apache.mina.core.session.IoSession;
 
 /**
- * Created on 2017/4/20.
+ * Created on 2018/5/19.
  *
  * @author kenny
  */

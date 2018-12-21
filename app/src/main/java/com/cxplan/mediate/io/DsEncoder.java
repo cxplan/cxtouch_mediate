@@ -6,8 +6,8 @@ import org.apache.mina.filter.codec.ProtocolEncoderOutput;
 
 /**
  *
- * @author kenny
  * Created on 2013-8-13
+ * @author kenny
  */
 public class DsEncoder extends ProtocolEncoderAdapter {
 

@@ -11,7 +11,11 @@ import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class MessageServer {
     private static final String TAG = Constant.TAG_PREFIX + "mServer";
     public static int messagePort = 2014;

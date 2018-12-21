@@ -16,9 +16,9 @@ import com.cxplan.mediate.Constant;
 import static android.content.Context.TELEPHONY_SERVICE;
 
 /**
- * Created by zhbinary on 2017/12/6.
+ * Created on 2017/12/6.
  *
- * @description:
+ * @author kenny
  */
 
 public class DeviceUtils {

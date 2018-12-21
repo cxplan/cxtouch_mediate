@@ -23,7 +23,11 @@ import com.cxplan.mediate.util.WindowManagerUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class MonkeyManager {
     private static String TAG = Constant.TAG_PREFIX + "monkey";
 

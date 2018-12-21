@@ -4,7 +4,11 @@ import android.net.LocalSocket;
 import android.net.LocalSocketAddress;
 
 import java.io.IOException;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class CXLocalSocket extends LocalSocket {
 
     private boolean isClosed = false;

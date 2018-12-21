@@ -6,11 +6,11 @@ import com.cxplan.mediate.message.MessageUtil;
 
 import org.apache.mina.core.session.IoSession;
 
-
 /**
- * Created by kenny on 2017/5/15.
+ * Created on 2018/5/19.
+ *
+ * @author kenny
  */
-
 public class PingCommandHandler extends AbstractCommandHandler {
 
     private static final String TAG = "PingCommandHandler";

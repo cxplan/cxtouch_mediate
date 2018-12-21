@@ -7,7 +7,11 @@ import com.cxplan.mediate.Constant;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class ImageServer {
 
     private static final String TAG = Constant.TAG_PREFIX + "imgServer";

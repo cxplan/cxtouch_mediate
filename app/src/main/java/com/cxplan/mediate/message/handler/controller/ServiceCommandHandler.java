@@ -10,7 +10,11 @@ import com.cxplan.mediate.message.handler.AbstractCommandHandler;
 import com.cxplan.mediate.process.Main;
 
 import org.apache.mina.core.session.IoSession;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class ServiceCommandHandler extends AbstractCommandHandler {
     private static final String TAG = Constant.TAG_PREFIX + "Service";
 

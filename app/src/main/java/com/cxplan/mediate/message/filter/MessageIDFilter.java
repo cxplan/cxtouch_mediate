@@ -6,6 +6,8 @@ import com.cxplan.mediate.message.MessageFilter;
 /**
  * Filters for packets with a particular packet ID.
  *
+ * Created on 2018/5/19.
+ * @author kenny
  */
 public class MessageIDFilter implements MessageFilter {
 

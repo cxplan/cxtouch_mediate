@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class FileUtil {
 
     public static void writeBytes(byte[] data, File file) throws IOException {

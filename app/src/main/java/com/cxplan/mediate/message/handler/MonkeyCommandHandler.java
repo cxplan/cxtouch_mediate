@@ -15,7 +15,11 @@ import com.cxplan.mediate.message.MessageUtil;
 import com.cxplan.mediate.process.Main;
 
 import org.apache.mina.core.session.IoSession;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class MonkeyCommandHandler extends AbstractCommandHandler {
     private static final String TAG = Constant.TAG_PREFIX + "monkey";
 

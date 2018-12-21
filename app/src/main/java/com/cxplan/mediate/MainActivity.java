@@ -8,7 +8,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+/**
+ * Created on 2018/5/19.
+ *
+ * @author kenny
+ */
 public class MainActivity extends Activity {
 
     private static final String TAG = "MainActivity";
