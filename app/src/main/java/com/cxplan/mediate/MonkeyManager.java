@@ -118,12 +118,12 @@ public class MonkeyManager {
         //watch rotation to screen
         try {
             WindowManagerUtil.watchRotation(windowManager, new IRotationWatcher.Stub() {
-                public void onRotationChanged(int paramAnonymousInt)
+                public void onRotationChanged(int rotation)
                         throws RemoteException
                 {
                     DeviceService service = new DeviceService();
                     try {
-                        service.rotationChanged(paramAnonymousInt);
+                        service.rotationChanged(rotation);
                     } catch (MessageException e) {
                         LogUtil.e(TAG, e.getMessage(), e);
                     }
@@ -135,10 +135,18 @@ public class MonkeyManager {
         }
 
         try {
-            System.out.println("current rotation: " + WindowManagerUtil.getRotation(windowManager, displayManager));
+            System.out.println("Current rotation: " + WindowManagerUtil.getRotation(windowManager, displayManager));
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static IWindowManager getWindowManager() {
+        return windowManager;
+    }
+
+    public static IDisplayManager getDisplayManager() {
+        return displayManager;
     }
 
     public static void injectKeyEvent(KeyEvent event)

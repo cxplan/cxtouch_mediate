@@ -55,7 +55,7 @@ public class DeviceUtils {
     }
 
     /**
-     * 返回当前程序版本名
+     * Return the version name of app.
      */
     public static String getAppVersionName(Context context) {
         String versionName = "";

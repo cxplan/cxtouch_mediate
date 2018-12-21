@@ -14,6 +14,7 @@ import java.net.InetSocketAddress;
 
 public class MessageServer {
     private static final String TAG = Constant.TAG_PREFIX + "mServer";
+    public static int messagePort = 2014;
 
     private NioSocketAcceptor acceptor;
     private boolean isStarted = false;
@@ -40,6 +41,7 @@ public class MessageServer {
 
         // Configure the buffer size and the idle time
         acceptor.getSessionConfig().setReadBufferSize( 5000 );
+        acceptor.setReuseAddress(true);
 
         InetAddress address;
         try {
@@ -51,20 +53,20 @@ public class MessageServer {
 
         isStarted = false;
         int count = 0;
-        int port = 2014;
         while (!isStarted) {
             count++;
             try {
-                acceptor.bind(new InetSocketAddress(address, port));
+                acceptor.bind(new InetSocketAddress(address, messagePort));
                 isStarted = true;
             } catch (Exception e) {
+                LogUtil.e(TAG, "Retry message server: " + count);
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e1) {
                 }
             }
         }
-        String message = "Message Server started [" + address.toString() + ":" + port + "]";
+        String message = "Message Server started [" + address.toString() + ":" + messagePort + "]";
         System.out.println(message);
         LogUtil.e(TAG, message);
     }

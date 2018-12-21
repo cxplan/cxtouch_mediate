@@ -5,16 +5,20 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Looper;
+import android.os.SystemProperties;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.view.WindowManager;
 
 import com.cxplan.common.util.LogUtil;
 import com.cxplan.common.util.RelectionUtil;
+import com.cxplan.common.util.StringUtil;
+import com.cxplan.mediate.inputer.IMEConnection;
 import com.cxplan.mediate.io.ControllerConnection;
 import com.cxplan.mediate.io.MessageServer;
 import com.cxplan.mediate.message.handler.CommandHandlerFactory;
 import com.cxplan.mediate.model.DeviceInfo;
+import com.cxplan.mediate.util.WindowManagerUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,6 +34,7 @@ import java.util.concurrent.Executors;
 public class CXApplication {
 
     private static final String TAG = Constant.TAG_PREFIX + "Application";
+    private static final String TAG_EXEC = Constant.TAG_PREFIX + "EXEC";
 
     public static final String PREFERENCE_NAME = "main";
     public static boolean isIMERunning = false;//Whether the CXTouchIME is running.
@@ -38,6 +43,7 @@ public class CXApplication {
 
     //The connection object between controller and device.
     private ControllerConnection connection;
+    private IMEConnection inputerConnection;
     private DeviceInfo deviceInfo;
     private Context context;
     //The device ID
@@ -85,6 +91,10 @@ public class CXApplication {
         LogUtil.i(TAG, "CommandHandler is ok.");
         //uid
         uid = android.os.Build.SERIAL;
+        if (StringUtil.isEmpty(uid) || "unknown".equals(uid)) {
+            uid = SystemProperties.get("ro.serialno");
+        }
+        System.out.println("The serial number: " + uid);
         //IMEI
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String phoneNumber = null;
@@ -96,21 +106,37 @@ public class CXApplication {
             LogUtil.i(TAG,"imei: " + mIMEI + "  phone number: " + phoneNumber);
         }
 
-        Point point = new Point();
-        WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-        windowManager.getDefaultDisplay().getRealSize(point);
-        // video size
-        final int width = point.y;
-        final int height = point.x;
         deviceInfo = new DeviceInfo();
         deviceInfo.setId(uid);
         deviceInfo.setZoomRate(0.5f);
-        deviceInfo.setScreenWidth(width);
-        deviceInfo.setScreenHeight(height);
         deviceInfo.setPhone(phoneNumber);
+        readScreenSize(deviceInfo);
 
         //connection
         connection = new ControllerConnection();
+        inputerConnection = new IMEConnection();
+    }
+
+    private void readScreenSize(DeviceInfo deviceInfo) {
+        Point point = new Point();
+        WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getRealSize(point);
+        int rotation;
+        try {
+            rotation = WindowManagerUtil.getRotation();
+        } catch (Exception e) {
+            rotation = windowManager.getDefaultDisplay().getRotation();
+        }
+        // video size
+        final int width = point.x;
+        final int height = point.y;
+        if (rotation % 2 == 0) {
+            deviceInfo.setScreenWidth(width);
+            deviceInfo.setScreenHeight(height);
+        } else {
+            deviceInfo.setScreenWidth(height);
+            deviceInfo.setScreenHeight(width);
+        }
     }
 
     public DeviceInfo getDeviceInfo() {
@@ -122,6 +148,10 @@ public class CXApplication {
     }
     public ControllerConnection getControllerConnection() {
         return connection;
+    }
+
+    public IMEConnection getInputerConnection() {
+        return inputerConnection;
     }
 
     public ExecutorService getThreadPool() {
@@ -290,16 +320,16 @@ public class CXApplication {
                     if (pw != null)
                         pw.println(line);
                     if (logLevel == 1) {
-                        LogUtil.e(TAG, line);
+                        LogUtil.e(TAG_EXEC, "-->" + line);
                     } else {
-                        LogUtil.i(TAG, line);
+                        LogUtil.i(TAG_EXEC, "-->" + line);
                     }
                 }
                 if (pw != null)
                     pw.flush();
             } catch (IOException e)
             {
-                LogUtil.e(TAG, e.getMessage(), e);
+                LogUtil.e(TAG_EXEC, e.getMessage(), e);
             }
         }
     }

@@ -49,6 +49,9 @@ public class MonkeyCommandHandler extends AbstractCommandHandler {
             case Constant.MONKEY_SCROLL:
                 scroll(message);
                 break;
+            case Constant.MONKEY_WAKE:
+                wake(message);
+                break;
             default:
                 LogUtil.e(TAG, "The monkey operation is not supported: " + type);
         }
@@ -101,6 +104,15 @@ public class MonkeyCommandHandler extends AbstractCommandHandler {
         Main.invoke(task);
 
     }
+
+    private void wake(Message message) {
+        try {
+            MonkeyManager.turnScreenOn();
+        } catch (Exception e) {
+            LogUtil.e(TAG, e.getMessage(), e);
+        }
+    }
+
     private void mouseDown(Message message) {
         final float x = message.getParameter("x");
         final float y = message.getParameter("y");

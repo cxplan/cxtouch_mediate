@@ -1,4 +1,4 @@
-package com.cxplan.mediate.message.handler.device;
+package com.cxplan.mediate.message.handler.controller;
 
 import com.cxplan.common.util.StringUtil;
 import com.cxplan.mediate.CXApplication;

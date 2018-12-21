@@ -12,6 +12,7 @@ import com.cxplan.mediate.message.handler.CommandHandlerFactory;
 import com.cxplan.mediate.message.handler.ICommandHandler;
 import com.cxplan.mediate.model.DeviceInfo;
 import com.cxplan.mediate.util.NetUtil;
+import com.cxplan.mediate.util.WindowManagerUtil;
 
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IoSession;
@@ -55,24 +56,26 @@ public class DefaultIoHandlerAdapter extends IoHandlerAdapter {
         }
 
         //1. Then span message collector.
-        if (connection == null) {
+        if (connection == null && !msg.getCommand().equals(MessageUtil.CMD_DEVICE_INIT_SESSION)) {
             LogUtil.e("The session is not initialized, but received a message:" + msg.getCommand());
             return;
         }
         // Loop through all collectors and notify the appropriate ones.
-        boolean ret = false;
-        for (MessageCollector collector : connection.getPacketCollectors()) {
-            try {
-                if (collector.processMessage(msg)) {
-                    ret = true;
+        if (connection != null) {
+            boolean ret = false;
+            for (MessageCollector collector : connection.getPacketCollectors()) {
+                try {
+                    if (collector.processMessage(msg)) {
+                        ret = true;
+                    }
+                } catch (Exception e) {
+                    processException(e, msg, session);
+                    return;
                 }
-            } catch (Exception e) {
-                processException(e, msg, session);
+            }
+            if (ret) {
                 return;
             }
-        }
-        if (ret) {
-            return;
         }
 
         //unresponsive command has some errors.
@@ -112,12 +115,15 @@ public class DefaultIoHandlerAdapter extends IoHandlerAdapter {
 
     @Override
     public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
-        LogUtil.e(cause.getMessage(), cause);
+        LogUtil.e(TAG, cause.getMessage(), cause);
     }
 
     @Override
     public void sessionClosed(IoSession session) throws Exception {
-//        reconnectionManager.reconnect();
+        ClientConnection connection = (ClientConnection)session.getAttribute(CLIENT_SESSION);
+        if (connection != null) {
+            connection.close();
+        }
     }
 
     private void preparePhone(IoSession session, Message msg) {
@@ -130,9 +136,17 @@ public class DefaultIoHandlerAdapter extends IoHandlerAdapter {
             CXApplication.getInstance().getDeviceInfo().setZoomRate(zoomRate);
         }
 
+        short rotation = 0;
+        try {
+            rotation = (short) WindowManagerUtil.getRotation();
+        } catch (Exception e) {
+            LogUtil.e(TAG, e.getMessage(), e);
+        }
+
         DeviceInfo phoneInfo = CXApplication.getInstance().getDeviceInfo();
         Message message = Message.createResultMessage(msg);
         message.setParameter("id", phoneInfo.getId());
+        message.setParameter("ro", rotation);
         String ip = null;
         try {
             ip = NetUtil.getLocalIp();
@@ -143,8 +157,8 @@ public class DefaultIoHandlerAdapter extends IoHandlerAdapter {
         message.setParameter("host", ip);
         message.setParameter("port", phoneInfo.getVideoPort());
         message.setParameter("phone", phoneInfo.getPhone());
-        message.setParameter("videoWidth", phoneInfo.getScreenWidth());
-        message.setParameter("videoHeight", phoneInfo.getScreenHeight());
+        message.setParameter("sw", phoneInfo.getScreenWidth());
+        message.setParameter("sh", phoneInfo.getScreenHeight());
 
         //device information
         message.setParameter("mediateVersion", "1.0");

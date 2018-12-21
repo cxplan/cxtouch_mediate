@@ -50,13 +50,21 @@ public class MessageUtil {
     /**
      * The commands sent to device
      */
-    public static final String CMD_DEVICE_CREATE_SESSION = "d_create";//create session with phone.
+    public static final String CMD_DEVICE_CREATE_SESSION = "d_create";//create session with device for remote session (controller).
+    public static final String CMD_DEVICE_INIT_SESSION = "d_init";//initialize session with device for local session.
     public static final String CMD_DEVICE_SET_NAME = "d_sn";//set name for device.
     public static final String CMD_DEVICE_MONKEY = "d_m";//execute monkey operation.
-    public static final String CMD_DEVICE_IMAGE = "c_image";//Tell device something about image channel.
+    public static final String CMD_DEVICE_IMAGE = "d_image";//Tell device something about image channel.
+    public static final String CMD_DEVICE_SERVICE = "d_service";//Service management.
+    public static final String CMD_DEVICE_IME = "d_ime";//the status of ime.
 
     public static final String CMD_PING = "ping";
     public static final String CMD_PING_HEART = "heart";//The response command to 'ping'.
+
+    /**
+     * The commands sent to IME
+     */
+    public static final String CMD_DEVICE_INPUTER = "d_inputer";//
 
     public static final String ERROR_TYPE_NAME = "errorType";
 

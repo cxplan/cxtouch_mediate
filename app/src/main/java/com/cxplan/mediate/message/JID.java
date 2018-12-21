@@ -1,7 +1,3 @@
-/**
- * The code is written by ytx, and is confidential.
- * Anybody must not broadcast these files without authorization.
- */
 package com.cxplan.mediate.message;
 
 /**
@@ -10,13 +6,6 @@ package com.cxplan.mediate.message;
  * @author kenny
  */
 public class JID {
-
-    public static JID createPhoneID(String id) {
-        return new JID(id, Type.PHONE);
-    }
-    public static JID createNodeID(String id) {
-        return new JID(id, Type.NODE);
-    }
 
     private String id;//The identifier for backend.
     private Type type;//The type of backend
@@ -74,9 +63,8 @@ public class JID {
 
     public enum Type {
         NONE((byte)-1),
-        PHONE((byte)0),
-        NODE((byte)1),
-        HUB((byte)2);
+        IME((byte)0),
+        CONTROLLER((byte)1);
 
         Type(byte value) {
             this.value = value;
@@ -89,11 +77,9 @@ public class JID {
         public static Type getType(byte value) {
             switch (value) {
                 case 0:
-                    return PHONE;
+                    return IME;
                 case 1:
-                    return NODE;
-                case 2:
-                    return HUB;
+                    return CONTROLLER;
                 case -1:
                     return NONE;
                 default:

@@ -66,7 +66,7 @@ public class ClientConnection {
      */
     public void sendMessage(Message msg) throws MessageException {
         if (session == null || !session.isConnected()) {
-            throw new MessageException("与客户端无连接，无法发送");
+            throw new MessageException("The session is not connected, the sending operation will be aborted.");
         }
 
         IoBuffer buffer = msg.getBinary();
@@ -145,7 +145,7 @@ public class ClientConnection {
 
     public void close() {
         if (session != null) {
-            session.close();
+            session.closeNow();
             session = null;
         }
     }
