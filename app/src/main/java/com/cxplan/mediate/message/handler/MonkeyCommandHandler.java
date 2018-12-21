@@ -58,7 +58,7 @@ public class MonkeyCommandHandler extends AbstractCommandHandler {
     }
 
     private void processType(Message message) {
-        String text = message.getParameter("s");
+        final String text = message.getParameter("s");
         if (StringUtil.isEmpty(text)) {
             return;
         }
@@ -66,8 +66,8 @@ public class MonkeyCommandHandler extends AbstractCommandHandler {
         if (CXApplication.isIMERunning) {//Custom IME is running.
             Intent intent = new Intent();
             intent.putExtra("s", text);
+            intent.setAction("COM.CXPLAN.TOUCH.INPUTER");
             intent.setComponent(new ComponentName(Constant.packageName, InputerReceiver.class.getName()));
-            LogUtil.e(TAG, "start inputer receiver: ");
 
             try {
                 MonkeyManager.sendBroadcast(intent);

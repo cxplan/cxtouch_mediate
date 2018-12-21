@@ -27,6 +27,11 @@ import org.apache.mina.transport.socket.nio.NioSocketConnector;
 
 import java.net.InetSocketAddress;
 
+/**
+ * A inputer method  worked with CXTouch. Accept all text content from PC keyboard.
+ *
+ * @author kenny
+ */
 public class CXTouchIME extends InputMethodService {
     private static final String TAG = Constant.TAG_PREFIX + "ime";
     private static final String ACTION_BIND = "bind";

@@ -19,7 +19,7 @@ public class InputerReceiver extends BroadcastReceiver {
             Intent paramIntent = new Intent(intent);
             paramIntent.setComponent(new ComponentName(context, CXTouchIME.class));
             context.startService(paramIntent);
-            LogUtil.e(TAG, "inputer service ok");
+            LogUtil.i(TAG, "start service ok");
             return;
         }
         catch (Throwable e) {

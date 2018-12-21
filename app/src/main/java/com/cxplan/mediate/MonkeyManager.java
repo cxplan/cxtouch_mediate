@@ -41,7 +41,7 @@ public class MonkeyManager {
     private static IDisplayManager displayManager;
 
     static boolean isInitialized = false;
-    static Instrumentation inst = new Instrumentation();
+    public static Instrumentation inst = new Instrumentation();
     static boolean isDown = false;//Indicate whether the touch is down.
     static long downTime = -1L;
 
@@ -160,6 +160,7 @@ public class MonkeyManager {
             LogUtil.e(TAG, "The inject input method is not initialized");
             return;
         }
+//        inst.sendKeySync(event);
         Boolean ret = (Boolean)injectInputMethod.invoke(inputManager, new Object[] { event, Integer.valueOf(2) });
         if (!ret) {
             LogUtil.e(TAG, "inject event failed: " + event);
