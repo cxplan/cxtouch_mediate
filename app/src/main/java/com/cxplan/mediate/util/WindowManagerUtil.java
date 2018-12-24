@@ -95,7 +95,15 @@ public class WindowManagerUtil {
         int height = CXApplication.getInstance().getDeviceInfo().getScreenHeight();
         int virtualWidth = (int)(width * zoomRate);
         int virtualHeight = (int)(height * zoomRate);
-        LogUtil.i(TAG, "screenshot:" + virtualWidth + "x" + virtualHeight);
+        int rotation = getRotation();
+        if (rotation % 2 == 0) {
+            virtualWidth = (int)(width * zoomRate);
+            virtualHeight = (int)(height * zoomRate);
+        } else {
+            virtualHeight = (int)(width * zoomRate);
+            virtualWidth = (int)(height * zoomRate);
+        }
+        LogUtil.i(TAG, "screenshot:" + virtualWidth + "x" + virtualHeight + ", rotation:" + rotation);
         if (Build.VERSION.SDK_INT <= 17) {
             surfaceClassName = "android.view.Surface";
         } else {
@@ -103,8 +111,7 @@ public class WindowManagerUtil {
         }
         Bitmap b = (Bitmap) Class.forName(surfaceClassName).
                 getDeclaredMethod("screenshot", Integer.TYPE, Integer.TYPE).
-                invoke(null, virtualHeight, virtualWidth);
-        int rotation = getRotation();
+                invoke(null, virtualWidth, virtualHeight);
         if (rotation == 0) {
             return b;
         }

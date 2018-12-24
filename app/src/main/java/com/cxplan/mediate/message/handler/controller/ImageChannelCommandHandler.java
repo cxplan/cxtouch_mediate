@@ -95,12 +95,11 @@ public class ImageChannelCommandHandler extends AbstractCommandHandler {
         Bitmap bitmap = null;
         try {
             bitmap = WindowManagerUtil.screenshot(zoomRate);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bout);
         } catch (Exception e) {
             LogUtil.e(TAG, e.getMessage(), e);
-            return;
+            throw new MessageException(e.getMessage());
         }
-        LogUtil.e(TAG, "bitmap=" + bitmap);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bout);
         Message retMsg = Message.createResultMessage(message);
         retMsg.setParameter("img", bout.toByteArray());
 
