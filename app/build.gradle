@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'maven'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 26
     defaultConfig {
         applicationId "com.cxplan.mediate"
         minSdkVersion 18
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -14,9 +14,19 @@ android {
     lintOptions {
         abortOnError false
     }
+    signingConfigs {
+        debug {}
+        release {
+            keyAlias 'key0'
+            keyPassword 'cxplan'
+            storeFile file('sign/cxtouch.jks')
+            storePassword 'cxplan'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -25,7 +35,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:23.4.0'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
