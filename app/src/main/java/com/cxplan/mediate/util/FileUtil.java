@@ -44,4 +44,19 @@ public class FileUtil {
         }
         return new FileOutputStream(file, append);
     }
+
+    public static void clearDirectory(File dir) {
+        if (dir == null || !dir.isDirectory()) {
+            return ;
+        }
+
+        File[] files = dir.listFiles();
+        if (files == null || files.length == 0) {
+            return;
+        }
+
+        for (File file : files) {
+            file.delete();
+        }
+    }
 }

@@ -64,19 +64,6 @@ public class Main {
             }
         });
 
-        //test
-        /*ScreenRecorder sr = new ScreenRecorder();
-        try {
-            sr.start("/sdcard/cxplan/a.mp4");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        sr.stop();*/
         System.out.println("Execute command  finished");
 
         eventQueue = new LinkedBlockingQueue<>(2000);

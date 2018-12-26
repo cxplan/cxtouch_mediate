@@ -93,8 +93,8 @@ public class WindowManagerUtil {
         String surfaceClassName;
         int width = CXApplication.getInstance().getDeviceInfo().getScreenWidth();
         int height = CXApplication.getInstance().getDeviceInfo().getScreenHeight();
-        int virtualWidth = (int)(width * zoomRate);
-        int virtualHeight = (int)(height * zoomRate);
+        int virtualWidth ;
+        int virtualHeight;
         int rotation = getRotation();
         if (rotation % 2 == 0) {
             virtualWidth = (int)(width * zoomRate);
