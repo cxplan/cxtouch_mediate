@@ -53,7 +53,6 @@ public class ScreenRecorder {
         this.recordWriter = recordWriter;
         this.width = width;
         this.height = height;
-        LogUtil.e(TAG, "ecodeSize=" + width  + "x" + height);
     }
 
     public IRecordWriter getRecordWriter() {

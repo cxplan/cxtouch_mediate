@@ -30,7 +30,6 @@ public class MP4RecordWriter implements IRecordWriter {
 
     @Override
     public boolean setFormat(MediaFormat mediaFormat, ByteBuffer codecPacket) {
-        LogUtil.e(TAG, "mf:" + mediaFormat + ", bb=" + codecPacket);
         if (muxer != null) {
             return false;
         }
