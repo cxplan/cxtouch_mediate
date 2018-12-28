@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.cxplan.mediate">
+    package="com.cxplan.projection.mediate">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -25,7 +25,7 @@
         >
 
         <activity
-            android:name="MainActivity"
+            android:name=".MainActivity"
             android:launchMode="singleTask"
             android:label="@string/app_name">
             <intent-filter>
@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <receiver android:exported="true" android:name="com.cxplan.mediate.inputer.InputerReceiver" android:permission="android.permission.INJECT_EVENTS">
+        <receiver android:exported="true" android:name=".inputer.InputerReceiver" android:permission="android.permission.INJECT_EVENTS">
             <intent-filter>
                 <action android:name="COM.CXPLAN.TOUCH.INPUTER" />
             </intent-filter>
