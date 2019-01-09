@@ -16,6 +16,7 @@ import com.cxplan.common.util.StringUtil;
 import com.cxplan.projection.mediate.inputer.IMEConnection;
 import com.cxplan.projection.mediate.io.ControllerConnection;
 import com.cxplan.projection.mediate.io.MessageServer;
+import com.cxplan.projection.mediate.io.image.ImageServer;
 import com.cxplan.projection.mediate.message.handler.CommandHandlerFactory;
 import com.cxplan.projection.mediate.model.DeviceInfo;
 import com.cxplan.projection.mediate.util.WindowManagerUtil;
@@ -59,6 +60,7 @@ public class CXApplication {
 
     private MessageServer messageServer;
     private boolean inProjection = false;
+    private ImageServer imageServer;
 
     //minicap config
     private int imageQuality = 80;
@@ -200,6 +202,14 @@ public class CXApplication {
             messageServer = new MessageServer();
         }
         messageServer.start();
+    }
+
+    public synchronized void startImageServer() {
+        if (imageServer == null) {
+            imageServer = new ImageServer();
+        }
+
+        imageServer.start();
     }
 
     /**

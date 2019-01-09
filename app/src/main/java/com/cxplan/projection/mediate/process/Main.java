@@ -103,7 +103,7 @@ public class Main {
         }
     }
 
-    public static void startMinicap() {
+    public synchronized static void startMinicap() {
         if (isMinicapActive()) {
             LogUtil.i(TAG, "The minicap is started already!");
             return;

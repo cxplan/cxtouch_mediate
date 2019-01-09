@@ -81,6 +81,7 @@ public class ImageChannelCommandHandler extends AbstractCommandHandler {
     private void processStartImageService(Message message) throws MessageException {
         Integer imageQuality = message.getParameter("iq");
         Float zoomRate = message.getParameter("zr");
+        Byte mode = message.getParameter("mode");
         if (imageQuality != null) {
             CXApplication.getInstance().setImageQuality(imageQuality);
         }
@@ -89,9 +90,13 @@ public class ImageChannelCommandHandler extends AbstractCommandHandler {
         }
         LogUtil.i(TAG, "Restart image service.[image quality=" + imageQuality + ", zoom rate=" + zoomRate + "]");
 
-        //restart minicap service
-        Main.shutdownMinicap();
-        Main.startMinicap();
+        if (mode != null && mode == 1) {//wireless mode
+            CXApplication.getInstance().startImageServer();
+        } else {//usb mode
+            //restart minicap service
+            Main.shutdownMinicap();
+            Main.startMinicap();
+        }
 
         Message retMsg = Message.createResultMessage(message);
         CXApplication.getInstance().getControllerConnection().sendMessage(retMsg);
