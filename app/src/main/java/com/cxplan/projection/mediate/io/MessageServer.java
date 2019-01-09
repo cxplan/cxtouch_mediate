@@ -3,6 +3,7 @@ package com.cxplan.projection.mediate.io;
 import com.cxplan.common.util.LogUtil;
 import com.cxplan.projection.mediate.CXApplication;
 import com.cxplan.projection.mediate.Constant;
+import com.cxplan.projection.mediate.util.NetUtil;
 
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.executor.ExecutorFilter;
@@ -47,9 +48,11 @@ public class MessageServer {
         acceptor.getSessionConfig().setReadBufferSize( 5000 );
         acceptor.setReuseAddress(true);
 
+        String ip;
         InetAddress address;
         try {
             address = InetAddress.getLocalHost();
+            ip = NetUtil.getLocalIp();
         } catch (IOException e) {
             LogUtil.e(TAG, "Retrieve local host failed: "+ e.getMessage(), e);
             return;
@@ -61,6 +64,7 @@ public class MessageServer {
             count++;
             try {
                 acceptor.bind(new InetSocketAddress(address, messagePort));
+                acceptor.bind(new InetSocketAddress(ip, messagePort));
                 isStarted = true;
             } catch (Exception e) {
                 LogUtil.e(TAG, "Retry message server: " + count);
