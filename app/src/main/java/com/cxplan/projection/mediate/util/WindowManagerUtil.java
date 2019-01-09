@@ -96,13 +96,9 @@ public class WindowManagerUtil {
         int virtualWidth ;
         int virtualHeight;
         int rotation = getRotation();
-        if (rotation % 2 == 0) {
-            virtualWidth = (int)(width * zoomRate);
-            virtualHeight = (int)(height * zoomRate);
-        } else {
-            virtualHeight = (int)(width * zoomRate);
-            virtualWidth = (int)(height * zoomRate);
-        }
+
+        virtualWidth = (int)(width * zoomRate);
+        virtualHeight = (int)(height * zoomRate);
         LogUtil.i(TAG, "screenshot:" + virtualWidth + "x" + virtualHeight + ", rotation:" + rotation);
         if (Build.VERSION.SDK_INT <= 17) {
             surfaceClassName = "android.view.Surface";
@@ -123,6 +119,6 @@ public class WindowManagerUtil {
         } else if (rotation == 3) {
             m.postRotate(-270.0f);
         }
-        return Bitmap.createBitmap(b, 0, 0, virtualHeight, virtualWidth, m, false);
+        return Bitmap.createBitmap(b, 0, 0, virtualWidth, virtualHeight , m, false);
     }
 }
