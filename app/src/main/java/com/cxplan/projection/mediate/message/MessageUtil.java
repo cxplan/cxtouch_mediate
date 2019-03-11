@@ -47,6 +47,7 @@ public class MessageUtil {
      * The commands received by controller
      */
     public static final String CMD_CONTROLLER_IMAGE = "c_image";//The actions related with image channel
+    public static final String CMD_CONTROLLER_CLIPBOARD = "c_clipboard";//The clipboard operation.
     /**
      * The commands sent to device
      */

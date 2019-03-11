@@ -1,7 +1,11 @@
 package com.cxplan.projection.mediate;
 
 import android.app.Instrumentation;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.IClipboard;
+import android.content.IOnPrimaryClipChangedListener;
 import android.content.Intent;
 import android.hardware.display.IDisplayManager;
 import android.hardware.input.InputManager;
@@ -43,6 +47,8 @@ public class MonkeyManager {
     //window manager
     private static IWindowManager windowManager;
     private static IDisplayManager displayManager;
+    //clipboard manager
+    private static IClipboard clipboard;
 
     static boolean isInitialized = false;
     public static Instrumentation inst = new Instrumentation();
@@ -79,6 +85,32 @@ public class MonkeyManager {
             Method asInterface = cStub.getMethod("asInterface", IBinder.class);
             powerManager = asInterface.invoke(null, powerService);
             isInteractiveMethod = powerManager.getClass().getMethod("isInteractive");
+        } catch (Exception e) {
+            LogUtil.e(TAG, "initializing power manager failed: " + e.getMessage(), e);
+            e.printStackTrace();
+        }
+
+        //clipboard manager
+        try {
+            Object clipService = getServiceMethod.invoke(null, Context.CLIPBOARD_SERVICE);
+            Class<?> cStub =  Class.forName("android.content.IClipboard$Stub");
+            Method asInterface = cStub.getMethod("asInterface", IBinder.class);
+            clipboard = (IClipboard) asInterface.invoke(null, clipService);
+            clipboard.addPrimaryClipChangedListener(new IOnPrimaryClipChangedListener.Stub() {
+                @Override
+                public void dispatchPrimaryClipChanged() throws RemoteException {
+                    ClipData primaryClip = clipboard.getPrimaryClip("com.android.shell");
+                    if (primaryClip.getItemCount() > 0) {
+                        String text = primaryClip.getItemAt(0).getText().toString();
+                        try {
+                            new DeviceService().clipboardChanged(text);
+                        } catch (MessageException e) {
+                            LogUtil.e(e.getMessage(), e);
+                        }
+                    }
+                }
+
+            }, null);
         } catch (Exception e) {
             LogUtil.e(TAG, "initializing power manager failed: " + e.getMessage(), e);
             e.printStackTrace();
@@ -151,6 +183,29 @@ public class MonkeyManager {
 
     public static IDisplayManager getDisplayManager() {
         return displayManager;
+    }
+
+    private static void listenClipboard() {
+        /*final IClipboard asInterface = Stub.asInterface((IBinder) declaredMethod.invoke(null, new Object[]{"clipboard"}));
+        IOnPrimaryClipChangedListener anonymousClass5 = new IOnPrimaryClipChangedListener.Stub() {
+            public void dispatchPrimaryClipChanged() throws RemoteException {
+                if (Main.webSocket != null) {
+                    try {
+                        ClipData primaryClip = asInterface.getPrimaryClip("com.android.shell");
+                        JSONObject jSONObject = new JSONObject();
+                        jSONObject.put("type", "clip");
+                        jSONObject.put("clip", primaryClip.getItemAt(0).getText());
+                        Main.sendEvent(jSONObject);
+                    } catch (Throwable e) {
+                        Log.e(Main.LOGTAG, "Clip error", e);
+                    }
+                }
+            }
+        };
+        if (asInterface != null) {
+            asInterface.addPrimaryClipChangedListener(anonymousClass5, null);
+        }*/
+
     }
 
     public static void injectKeyEvent(KeyEvent event)

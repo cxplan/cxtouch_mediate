@@ -1,6 +1,7 @@
 package com.cxplan.projection.mediate.service;
 
 import com.cxplan.common.util.LogUtil;
+import com.cxplan.common.util.StringUtil;
 import com.cxplan.projection.mediate.CXApplication;
 import com.cxplan.projection.mediate.Constant;
 import com.cxplan.projection.mediate.message.Message;
@@ -51,6 +52,23 @@ public class DeviceService extends BaseService {
         sendMessage(message);
 
         LogUtil.i(TAG, "The result of starting minicap is sent to controller");
+    }
+
+    /**
+     * When a new text is copied to clipboard, this method should be
+     * invoked to tell client the current content.
+     *
+     * @param text the current text content on clipboard.
+     */
+    public void clipboardChanged(String text) throws MessageException {
+        LogUtil.i(TAG, "The content on clipboard is changed: " + text);
+        if (StringUtil.isEmpty(text)) {
+            return;
+        }
+
+        Message message = new Message(MessageUtil.CMD_CONTROLLER_CLIPBOARD);
+        message.setParameter("c", text);
+        sendMessage(message);
     }
 
     /**
