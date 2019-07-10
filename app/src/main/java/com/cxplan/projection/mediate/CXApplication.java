@@ -93,6 +93,7 @@ public class CXApplication {
         MonkeyManager.initialize();
         LogUtil.i(TAG, "MonkeyManager is ok.");
         //Load all command handler
+        Constant.packageName = "com.cxplan.projection.mediate";
         CommandHandlerFactory.loadHandler("com.cxplan.projection.mediate.message.handler", context);
         LogUtil.i(TAG, "CommandHandler is ok.");
         //uid

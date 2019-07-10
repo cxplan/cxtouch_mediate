@@ -9,9 +9,9 @@ public class Constant {
     /**
      * The prefix for application intent for viewing log conveniently.
      */
-    public static String TAG_PREFIX = "cx.touch.tag.";
+    public static String TAG_PREFIX;
 
-    public static final String packageName = "com.cxplan.projection.mediate";
+    public static String packageName;
 
     /**
      * The monkey action
@@ -22,7 +22,12 @@ public class Constant {
     public static final short MONKEY_MOUSE_MOVE = 4;
     public static final short MONKEY_MOUSE_UP = 5;
     public static final short MONKEY_WAKE = 9;//wake screen.
+    public static final short MONKEY_SLEEP = 10;//wake screen.
     public static final short MONKEY_SCROLL = 13;
     public static final short MONKEY_SWITCH_INPUTER = 100;
 
+    /**
+     * The session constant
+     */
+    public static final String CLIENT_SESSION = "session";
 }

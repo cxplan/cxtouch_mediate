@@ -27,7 +27,7 @@ import java.net.SocketException;
 public class DefaultIoHandlerAdapter extends IoHandlerAdapter {
 
     private static final String TAG = Constant.TAG_PREFIX + "IoHandlerAdapter";
-    public static final String CLIENT_SESSION = "session";
+    public static final String CLIENT_SESSION = Constant.CLIENT_SESSION;
 
     @Override
     public void sessionCreated(IoSession session) {
@@ -51,7 +51,7 @@ public class DefaultIoHandlerAdapter extends IoHandlerAdapter {
         }
 
         if (MessageUtil.CMD_DEVICE_CREATE_SESSION.equals(msg.getCommand())) {
-            preparePhone(session, msg);
+            prepareDevice(session, msg);
             return;
         }
 
@@ -126,7 +126,7 @@ public class DefaultIoHandlerAdapter extends IoHandlerAdapter {
         }
     }
 
-    private void preparePhone(IoSession session, Message msg) {
+    private void prepareDevice(IoSession session, Message msg) {
         Integer imageQuality = msg.getParameter("iq");
         Float zoomRate = msg.getParameter("zr");
         if (imageQuality != null) {

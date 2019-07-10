@@ -14,11 +14,14 @@ public class NetUtil {
     private static final String TAG = "NetUtil";
 
     /**
-     * 获取本地IP地址
+     * Retrieve local IP address
      * @throws SocketException
      */
     public static String getLocalIp() throws SocketException {
         Enumeration<NetworkInterface> enu = NetworkInterface.getNetworkInterfaces();
+        if (enu == null || !enu.hasMoreElements()) {
+            return "localhost";
+        }
         while (enu.hasMoreElements()) {
             NetworkInterface ni = enu.nextElement();
             Enumeration<InetAddress> addressList = ni.getInetAddresses();

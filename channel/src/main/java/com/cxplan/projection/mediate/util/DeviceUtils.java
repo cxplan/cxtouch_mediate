@@ -13,6 +13,8 @@ import android.util.Log;
 import com.cxplan.common.util.LogUtil;
 import com.cxplan.projection.mediate.Constant;
 
+import java.util.List;
+
 import static android.content.Context.TELEPHONY_SERVICE;
 
 /**
@@ -32,10 +34,9 @@ public class DeviceUtils {
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setComponent(cmp);
-            LogUtil.e("执行了openWX");
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            LogUtil.e("openWX 异常 "+ e.getMessage(),e);
+            LogUtil.e("Opening weixin failed: "+ e.getMessage(),e);
         }
     }
 

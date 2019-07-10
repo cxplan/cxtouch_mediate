@@ -67,8 +67,10 @@ public class CommandHandlerFactory {
 
     public static void loadHandler(String packageName, Context context) {
         DexFile df = null;
+        String dexFilePath = getDexFilePath(context);
+        LogUtil.i(TAG, "The dex file path: " + dexFilePath);
         try {
-            df = new DexFile(getDexFilePath(context));
+            df = new DexFile(dexFilePath);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
@@ -81,7 +83,7 @@ public class CommandHandlerFactory {
                 Class<?> clazz = CommandHandlerFactory.class.forName(s);
                 if (ICommandHandler.class.isAssignableFrom(clazz)
                         && !Modifier.isAbstract(clazz.getModifiers())) {
-                    System.out.println(clazz.getName());
+                    LogUtil.i(TAG, "Handler: " + clazz.getName());
                     ICommandHandler handler = (ICommandHandler)clazz.newInstance();
                     handlerMap.put(handler.getCommand(), handler);
                 }

@@ -33,6 +33,10 @@ import java.net.InetSocketAddress;
  * @author kenny
  */
 public class CXTouchIME extends InputMethodService {
+    static {
+        Constant.TAG_PREFIX = "cxplan.touch.ime.";
+    }
+
     private static final String TAG = Constant.TAG_PREFIX + "ime";
     private static final String ACTION_BIND = "bind";
     private static final String ACTION_UNBIND = "unbind";
@@ -161,7 +165,7 @@ public class CXTouchIME extends InputMethodService {
                         connFuture.cancel();
                         String errorMsg = "Connecting to message server is timeout: forward port=" + MessageServer.messagePort;
                         LogUtil.e(TAG, errorMsg);
-                        throw new RuntimeException(errorMsg);
+//                        throw new RuntimeException(errorMsg);
                     }
 
                     IoSession messageSession = connFuture.getSession();

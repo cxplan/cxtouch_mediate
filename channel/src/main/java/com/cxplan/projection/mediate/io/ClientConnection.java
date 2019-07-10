@@ -107,6 +107,18 @@ public class ClientConnection {
         collectors.add(collector);
         return collector;
     }
+
+    public boolean visitMessageCollectors(Message message) {
+        boolean ret = false;
+        for (MessageCollector collector : getPacketCollectors()) {
+            if (processMessage(collector, message)) {
+                ret = true;
+            }
+        }
+
+        return ret;
+    }
+
     /**
      * Remove a packet collector of this connection.
      *

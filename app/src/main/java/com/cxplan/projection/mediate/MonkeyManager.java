@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.IClipboard;
 import android.content.IOnPrimaryClipChangedListener;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.hardware.display.IDisplayManager;
 import android.hardware.input.InputManager;
 import android.os.IBinder;
@@ -27,6 +28,8 @@ import com.cxplan.projection.mediate.util.WindowManagerUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
+
 /**
  * Created on 2018/5/19.
  *
@@ -183,29 +186,6 @@ public class MonkeyManager {
 
     public static IDisplayManager getDisplayManager() {
         return displayManager;
-    }
-
-    private static void listenClipboard() {
-        /*final IClipboard asInterface = Stub.asInterface((IBinder) declaredMethod.invoke(null, new Object[]{"clipboard"}));
-        IOnPrimaryClipChangedListener anonymousClass5 = new IOnPrimaryClipChangedListener.Stub() {
-            public void dispatchPrimaryClipChanged() throws RemoteException {
-                if (Main.webSocket != null) {
-                    try {
-                        ClipData primaryClip = asInterface.getPrimaryClip("com.android.shell");
-                        JSONObject jSONObject = new JSONObject();
-                        jSONObject.put("type", "clip");
-                        jSONObject.put("clip", primaryClip.getItemAt(0).getText());
-                        Main.sendEvent(jSONObject);
-                    } catch (Throwable e) {
-                        Log.e(Main.LOGTAG, "Clip error", e);
-                    }
-                }
-            }
-        };
-        if (asInterface != null) {
-            asInterface.addPrimaryClipChangedListener(anonymousClass5, null);
-        }*/
-
     }
 
     public static void injectKeyEvent(KeyEvent event)

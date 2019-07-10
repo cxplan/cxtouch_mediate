@@ -17,6 +17,9 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class Main {
 
+    static {
+        Constant.TAG_PREFIX = "cxplan.touch.";
+    }
     private static final String TAG = Constant.TAG_PREFIX + "main";
 
     private static LinkedBlockingQueue<Runnable> eventQueue;

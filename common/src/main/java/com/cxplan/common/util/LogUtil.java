@@ -12,7 +12,7 @@ public class LogUtil {
 
     public static boolean isDebug = true;
 
-    // 下面四个是默认tag的函数
+    // Default tag
     public static void i(String msg) {
         if (isDebug)
             Log.i(TAG, msg);
@@ -21,6 +21,11 @@ public class LogUtil {
     public static void d(String msg) {
         if (isDebug)
             Log.d(TAG, msg);
+    }
+
+    public static void w(String msg) {
+        if (isDebug)
+            Log.w(TAG, msg);
     }
 
     public static void e(String msg) {
@@ -33,7 +38,6 @@ public class LogUtil {
             Log.v(TAG, msg);
     }
 
-    // 下面是传入自定义tag的函数
     public static void i(String tag, String msg) {
         if (isDebug)
             Log.i(tag, msg);
@@ -42,6 +46,11 @@ public class LogUtil {
     public static void d(String tag, String msg) {
         if (isDebug)
             Log.d(tag, msg);
+    }
+
+    public static void w(String tag, String msg) {
+        if (isDebug)
+            Log.w(tag, msg);
     }
 
     public static void e(String tag, String msg) {

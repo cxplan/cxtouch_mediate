@@ -56,6 +56,9 @@ public class MonkeyCommandHandler extends AbstractCommandHandler {
             case Constant.MONKEY_WAKE:
                 wake(message);
                 break;
+            case Constant.MONKEY_SLEEP:
+                sleep(message);
+                break;
             default:
                 LogUtil.e(TAG, "The monkey operation is not supported: " + type);
         }
@@ -112,6 +115,13 @@ public class MonkeyCommandHandler extends AbstractCommandHandler {
     private void wake(Message message) {
         try {
             MonkeyManager.turnScreenOn();
+        } catch (Exception e) {
+            LogUtil.e(TAG, e.getMessage(), e);
+        }
+    }
+    private void sleep(Message message) {
+        try {
+            MonkeyManager.turnScreenOff();
         } catch (Exception e) {
             LogUtil.e(TAG, e.getMessage(), e);
         }
